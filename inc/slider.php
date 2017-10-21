@@ -18,7 +18,7 @@ function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize )
 		/**
 		 * Set default value for customizer.
 		 */
-		$wp_customize->add_setting( 'slide_' . $index, array(
+		$wp_customize->add_setting( $id, array(
 			'default'   => get_parent_theme_file_uri( '/images/' . $id . '.jpg'  ),
 			'transport' => 'postMessage',
 		) );
@@ -52,28 +52,8 @@ function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize )
 add_action( 'customize_register', 'fesdemo_slider_customize_register' );
 
 /**
- * Get Theme Option.
+ * Slider markup for customizer preview.
  *
- * @param WP_Customize_Partial|int $partial
- *
- * @return string
- */
-function fesdemo_slider_get_slide( $partial = 0 ) {
-	$id = null;
-	if ( $partial instanceof WP_Customize_Control ) {
-		$id = $partial->id;
-	} elseif ( is_integer( $partial ) ) {
-		$id = 'slide_' . $partial;
-	}
-
-	if ( $id ) {
-		return get_theme_mod( $id, get_parent_theme_file_uri( '/images/' . $id . '.jpg' ) );
-	}
-
-	return false;
-}
-
-/**
  * @param WP_Customize_Partial|null $partial
  */
 function fesdemo_slider_render( $partial = null ) {
@@ -87,6 +67,9 @@ function fesdemo_slider_render( $partial = null ) {
 	<?php endif;
 }
 
+/**
+ * Add assets for customizer.
+ */
 function fesdemo_slider_scripts() {
 
 	wp_enqueue_style( 'fesdemo-swiper', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css' );
