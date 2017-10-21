@@ -25,7 +25,6 @@ function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize )
 
 		$wp_customize->selective_refresh->add_partial( $id, array(
 			'selector'            => '#'.$id,
-			'container_inclusive' => true,
 			'render_callback'     => 'fesdemo_slider_render',
 			'fallback_refresh'    => false,
 		) );
@@ -57,14 +56,11 @@ add_action( 'customize_register', 'fesdemo_slider_customize_register' );
  * @param WP_Customize_Partial|null $partial
  */
 function fesdemo_slider_render( $partial = null ) {
-	$images = get_theme_mod( $partial->id ); ?>
-	<?php if ( $images ): ?>
-		<div class="swiper-slide" id="<?php echo esc_attr( $partial->id ); ?>">
-			<img src="<?php echo esc_url( $images ); ?>" alt="">
-		</div>
-	<?php else: ?>
-		<div class="swiper-slide" id="<?php echo esc_attr( $partial->id ); ?>" style="display: none"></div>
-	<?php endif;
+	$images = get_theme_mod( $partial->id );
+	if ( $images ): ?>
+		<img src="<?php echo esc_url( $images ); ?>" alt="">
+	<?php
+	endif;
 }
 
 /**

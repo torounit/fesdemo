@@ -63,7 +63,6 @@
 			<div class="swiper-wrapper">
 				<?php foreach ( range( 1, 3 ) as $index ): ?>
 					<?php $images = get_theme_mod( 'slide_' . $index, get_parent_theme_file_uri( '/images/' . 'slide_' . $index . '.jpg' ) ); ?>
-
 					<?php if ( $images ): ?>
 						<div class="swiper-slide" id="slide_<?php echo esc_attr( $index ); ?>">
 							<img src="<?php echo esc_url( $images ); ?>" alt="">
