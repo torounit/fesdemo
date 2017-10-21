@@ -1,29 +1,27 @@
 /**
- * File customizer.js.
+ * File: slider-customizer.js
  *
- * Theme Customizer enhancements for a better user experience.
- *
- * Contains handlers to make Theme Customizer preview reload changes asynchronously.
+ * update slider in customizer preview.
  */
 
-( function( $ ) {
+(function( $ ) {
+	"use strict";
+	let api = wp.customize;
 
-	var api = wp.customize;
 	api.bind( 'preview-ready', function() {
-		"use strict";
 		api.selectiveRefresh.bind( 'partial-content-rendered', function( partical ) {
-
-			if( partical.addedContent ) {
+			let index = 0;
+			if (partical.addedContent) {
 				partical.container.show();
+				index = $( window.slider.slides ).index( partical.container );
 			}
-			else  {
+			else {
 				partical.container.hide();
 			}
-
-			window.slide.update();
-			window.slide.slideTo(0);
+			window.slider.update();
+			window.slider.slideTo( index );
 		} )
-	});
+	} );
 
 
-} )( jQuery );
+})( jQuery );
