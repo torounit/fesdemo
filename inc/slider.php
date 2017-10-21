@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Customizer Setting for Slider.
+ *
  * @param WP_Customize_Manager $wp_customize
  */
 function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize ) {
@@ -11,30 +13,33 @@ function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize )
 
 	foreach ( range( 1, 3 ) as $index ) {
 
+		$id = 'slide_' . $index;
+
 		/**
 		 * Set default value for customizer.
 		 */
 		$wp_customize->add_setting( 'slide_' . $index, array(
-			'default'   => get_parent_theme_file_uri( '/images/' . $index . '.jpg'  ),
+			'default'   => get_parent_theme_file_uri( '/images/' . $id . '.jpg'  ),
 			'transport' => 'postMessage',
 		) );
 
-		$wp_customize->selective_refresh->add_partial( 'slide_' . $index, array(
-			'selector'            => '#slide_' . $index,
+		$wp_customize->selective_refresh->add_partial( $id, array(
+			'selector'            => '#'.$id,
 			'container_inclusive' => true,
 			'render_callback'     => 'fesdemo_slider_render',
 			'fallback_refresh'    => false,
 		) );
 
-		$wp_customize->add_section( 'slide_' . $index, array(
+		$wp_customize->add_section( $id, array(
 			'title' => sprintf( __( 'Slide %s' ), $index ),
 			'panel' => 'slides',
 		) );
 
-		$control = new WP_Customize_Control( $wp_customize, 'slide_' . $index, array(
+		$control = new WP_Customize_Image_Control( $wp_customize, $id, array(
 				'label'          => __( 'Upload an Image' ),
 				'allow_addition' => true,
-				'section'        => 'slide_' . $index,
+				'section'        => $id,
+				'active_callback' => 'is_front_page',
 //				'width'          => 1920,
 //				'height'         => 1080,
 			)
@@ -68,6 +73,20 @@ function fesdemo_slider_get_slide( $partial = 0 ) {
 	return false;
 }
 
+/**
+ * @param WP_Customize_Partial|null $partial
+ */
+function fesdemo_slider_render( $partial = null ) {
+	$images = get_theme_mod( $partial->id ); ?>
+	<?php if ( $images ): ?>
+		<div class="swiper-slide" id="<?php echo esc_attr( $partial->id ); ?>">
+			<img src="<?php echo esc_url( $images ); ?>" alt="">
+		</div>
+	<?php else: ?>
+		<div class="swiper-slide" id="<?php echo esc_attr( $partial->id ); ?>" style="display: none"></div>
+	<?php endif;
+}
+
 function fesdemo_slider_scripts() {
 
 	wp_enqueue_style( 'fesdemo-swiper', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css' );
@@ -81,7 +100,7 @@ add_action( 'wp_enqueue_scripts', 'fesdemo_slider_scripts' );
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function fesdemo_slider_customize_preview_js() {
-	wp_enqueue_script( 'fesdemo-customizer', get_template_directory_uri() . '/js/slider-customizer.js', array(
+	wp_enqueue_script( 'fesdemo-slider-customizer', get_template_directory_uri() . '/js/slider-customizer.js', array(
 		'customize-preview',
 		'fesdemo-slider'
 	), false, true );

@@ -41,21 +41,5 @@
 			}
 		} );
 	} );
-	api.bind( 'preview-ready', function() {
-		"use strict";
-		api.selectiveRefresh.bind( 'partial-content-rendered', function( partical ) {
-
-			if( partical.addedContent ) {
-				partical.container.show();
-			}
-			else  {
-				partical.container.hide();
-			}
-
-			window.slide.update();
-			window.slide.slideTo(0);
-		} )
-	});
-
 
 } )( jQuery );
