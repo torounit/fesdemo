@@ -31,6 +31,7 @@ function fesdemo_slider_customize_register( WP_Customize_Manager $wp_customize )
 
 	$wp_customize->add_panel( 'slides', array(
 		'title' => __( 'Slides' ),
+		'priority' => 140,
 	) );
 
 	foreach ( range( 1, fesdemo_slider_count() ) as $index ) {
