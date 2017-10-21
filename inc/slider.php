@@ -85,9 +85,9 @@ add_action( 'customize_register', 'fesdemo_slider_customize_register' );
  * @param WP_Customize_Partial $partial
  */
 function fesdemo_slider_render( WP_Customize_Partial $partial ) {
-	$images = get_theme_mod( $partial->id );
-	if ( $images ): ?>
-		<img src="<?php echo esc_url( $images ); ?>" alt="">
+	$image = get_theme_mod( $partial->id );
+	if ( $image ): ?>
+		<img src="<?php echo esc_url( $image ); ?>" alt="">
 	<?php
 	endif;
 }

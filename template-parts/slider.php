@@ -6,21 +6,20 @@
  */
 ?>
 
-<?php if( is_front_page() ) :?>
+<?php if ( is_front_page() ) : ?>
 
 	<!-- Swiper -->
 	<div class="swiper-container">
 		<div class="swiper-wrapper">
 			<?php foreach ( range( 1, 3 ) as $index ): ?>
-				<?php $images = get_theme_mod( 'slide_' . $index, get_parent_theme_file_uri( '/images/' . 'slide_' . $index . '.jpg' ) ); ?>
-				<?php if ( $images ): ?>
-					<div class="swiper-slide" id="slide_<?php echo esc_attr( $index ); ?>">
-						<img src="<?php echo esc_url( $images ); ?>" alt="">
-					</div>
-				<?php else: ?>
-					<div class="swiper-slide" id="slide_<?php echo esc_attr( $index ); ?>" style="display: none"></div>
-				<?php endif; ?>
-
+				<?php
+				$id = 'slide_' . $index;
+				$image = get_theme_mod( $id, get_parent_theme_file_uri( '/images/' . $id. '.jpg' ) ); ?>
+				<div class="swiper-slide" id="<?php echo esc_attr( $id ); ?>" <?php if ( ! $image ) : ?> style="display: none" <?php endif; ?>>
+					<?php if ( $image ): ?>
+						<img src="<?php echo esc_url( $image ); ?>" alt="">
+					<?php endif; ?>
+				</div>
 			<?php endforeach; ?>
 		</div>
 		<!-- Add Pagination -->
@@ -31,4 +30,4 @@
 	</div>
 
 
-<?php endif;?>
+<?php endif; ?>
