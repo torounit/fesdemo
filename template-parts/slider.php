@@ -13,12 +13,9 @@
 		<div class="swiper-wrapper">
 			<?php foreach ( range( 1, 3 ) as $index ): ?>
 				<?php
-				$id = 'slide_' . $index;
-				$image = get_theme_mod( $id, get_parent_theme_file_uri( '/images/' . $id. '.jpg' ) ); ?>
-				<div class="swiper-slide" id="<?php echo esc_attr( $id ); ?>" <?php if ( ! $image ) : ?> style="display: none" <?php endif; ?>>
-					<?php if ( $image ): ?>
-						<img src="<?php echo esc_url( $image ); ?>" alt="">
-					<?php endif; ?>
+				$id = 'slide_' . $index; ?>
+				<div  id="<?php echo esc_attr( $id ); ?>">
+					<?php my_banner_render( null, $id );?>
 				</div>
 			<?php endforeach; ?>
 		</div>
@@ -31,3 +28,11 @@
 
 
 <?php endif; ?>
+
+<?php foreach ( range( 1, 3 ) as $index ): ?>
+	<?php
+	$id = 'slide_' . $index; ?>
+	<div  id="<?php echo esc_attr( $id ); ?>">
+		<?php my_banner_render( null, $id );?>
+	</div>
+<?php endforeach; ?>

@@ -7,7 +7,7 @@
 
 /**
  * Add postMessage support for site title and description for the Theme Customizer.
- *
+ *…
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
 function fesdemo_customize_register( WP_Customize_Manager $wp_customize ) {
