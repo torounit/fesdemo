@@ -5,8 +5,8 @@
 			nextButton: '.swiper-button-next',
 			prevButton: '.swiper-button-prev',
 			simulateTouch: false,
-			slidesPerView: 'auto',
-			centeredSlides: true,
+			slidesPerView: 1,
+			centeredSlides: false,
 		} );
 	} )
 })( jQuery );

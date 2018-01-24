@@ -13,8 +13,8 @@
 		<div class="swiper-wrapper">
 			<?php foreach ( range( 1, 3 ) as $index ): ?>
 				<?php
-				$id = 'slide_' . $index; ?>
-				<div  id="<?php echo esc_attr( $id ); ?>">
+				$id = 'banner_' . $index; ?>
+				<div  id="<?php echo esc_attr( $id ); ?>" class="swiper-slide">
 					<?php my_banner_render( null, $id );?>
 				</div>
 			<?php endforeach; ?>
@@ -29,10 +29,3 @@
 
 <?php endif; ?>
 
-<?php foreach ( range( 1, 3 ) as $index ): ?>
-	<?php
-	$id = 'slide_' . $index; ?>
-	<div  id="<?php echo esc_attr( $id ); ?>">
-		<?php my_banner_render( null, $id );?>
-	</div>
-<?php endforeach; ?>
